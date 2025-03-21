@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Alphabet Selector</title>
+    <style>
+        .alphabet {
+            font-size: 24px;
+            margin: 5px;
+            display: inline-block;
+        }
+        .highlight {
+            background-color: yellow;
+            font-weight: bold;
+            animation: bounce 1s infinite, colorChange 1s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+        @keyframes colorChange {
+            0% {
+               50% {
+                color: blue;
+            }
+            100% {
+                color: green;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="alphabets"></div>
+    <button onclick="highlightRandomAlphabet()">Select Random Alphabet</button>
+
+    <script>
+        function getRandomAlphabet() {
+            const alphabets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+            const randomIndex = Math.floor(Math.random() * alphabets.length);
+            return alphabets[randomIndex];
+        }
+
+        function highlightRandomAlphabet() {
+            const alphabetsDiv = document.getElementById('alphabets');
+            const alphabets = alphabetsDiv.children;
+            const randomAlphabet = getRandomAlphabet();
+
+            for (let i = 0; i < alphabets.length; i++) {
+                alphabets[i].classList.remove('highlight');
+                if (alphabets[i].textContent === randomAlphabet) {
+                    alphabets[i].classList.add('highlight');
+                }
+            }
+        }
+
+        function displayAlphabets() {
+            const alphabets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+            const alphabetsDiv = document.getElementById('alphabets');
+
+            for (let i = 0; i < alphabets.length; i++) {
+                const span = document.createElement('span');
+                span.textContent = alphabets[i];
+                span.classList.add('alphabet');
+                alphabetsDiv.appendChild(span);
+            }
+        }
+
+        // Display alphabets on page load
+        window.onload = displayAlphabets;
+    </script>
+</body>
+</html>
